@@ -32,7 +32,7 @@ function val = Read(app)
             info=audioinfo(fullfile(app.dataPath,'Mics',app.micPaths(1).name));
             minSamples = info.TotalSamples;
             fs=info.SampleRate;
-            for k=2:size(app.micPaths,2)
+            for k=2:size(app.micPaths,1)
                 info=audioinfo(fullfile(app.dataPath,'Mics',app.micPaths(k).name));
                 minSamples = min(minSamples,info.TotalSamples);
             end
