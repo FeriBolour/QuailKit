@@ -67,7 +67,7 @@ function batchProcess(app,updateLoadInterval)
         for i = 2:size(app.micNames,2)+1
             T{i,1} = app.micNames(i-1);
             T{i,2} = app.micpos(i-1,1);
-            T{i,3} = app.micpos(i-1,1);
+            T{i,3} = app.micpos(i-1,2);
         end
         writecell(T,resultfile,"Sheet","Microphone Positions(GPS)");
         
@@ -76,7 +76,7 @@ function batchProcess(app,updateLoadInterval)
         micposUTM = ll2utm(app.micpos(:,1),app.micpos(:,2));
         for i = 2:size(app.micNames,2)+1
             T{i,2} = micposUTM(i-1,1);
-            T{i,3} = micposUTM(i-1,1);
+            T{i,3} = micposUTM(i-1,2);
         end
         writecell(T,resultfile,"Sheet","Microphone Positions(UTM)");
         
