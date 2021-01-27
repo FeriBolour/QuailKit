@@ -75,7 +75,7 @@ function val = Read(app)
             if initialLoadInterval(2) <= app.Samples
                 app.loadInterval = initialLoadInterval;
             else
-                app.loadInterval = [1 app.audioSamples];
+                app.loadInterval = [1 app.Samples];
             end
             app.subInterval = [1 app.Fs*app.loadSubIntervalRate];
         end

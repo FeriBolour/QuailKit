@@ -58,8 +58,12 @@ else
             end
         end
         
-        if strcmp(app.ModeSwitch.Value,"Online")
+        if strcmp(app.ModeSwitch.Value,"Online") && strcmp(app.channel,"Both")
             Ave{i} = (Channels{1,i} + Channels{2,i}) / 2;
+        elseif strcmp(app.ModeSwitch.Value,"Online") && strcmp(app.channel,"Channel 1")
+            Ave{i} = Channels{1,i};
+        elseif strcmp(app.ModeSwitch.Value,"Online") && strcmp(app.channel,"Channel 2")
+            Ave{i} = Channels{2,i};
         end
         
     end

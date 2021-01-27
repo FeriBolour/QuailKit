@@ -28,7 +28,7 @@ function batchProcess(app,updateLoadInterval)
             drawnow;
             i = i+1;
         else
-            app.NorecordingsloadedyetLabel.Text = "Batch Processing("+string(num2str(floor((totalSeconds*app.Fs/app.Samples)*10000)/100))+"/100%)";
+            app.NorecordingsloadedyetLabel.Text = "Batch Processing(100/100%)";
             drawnow;
             break;
         end
@@ -131,7 +131,7 @@ function batchProcess(app,updateLoadInterval)
 end
 function avgTemp = avg10sTemp(app)
     %Preallocate the array
-    avgTemp = zeros(app.Samples/(app.Fs*10),1);
+    avgTemp = zeros(round(app.Samples/(app.Fs*10)),1);
     
     timeleft = app.Samples/app.Fs;
     time = zeros(1,3);
