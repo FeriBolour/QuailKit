@@ -25,7 +25,7 @@ end
 %If 4 audio files couldn't be found, this will return NaN.
 function val = Read(app)
     if isempty(app.micPaths)
-        app.micPaths = dir(fullfile(app.dataPath,"Mics")+"\*.wav");
+        app.micPaths = dir(fullfile(app.dataPath,"Mics")+"/*.wav");
         
         if length(app.micPaths) >= 4
             
