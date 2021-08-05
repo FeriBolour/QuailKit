@@ -84,7 +84,7 @@ function val = Read(app)
         end
     end
     %% Grab the specified loading interval - this can be modified by the user by
-    % choosing a different loading interval
+    % choosing a different loading inte
     app.AudioFilePlay = [];
     app.AudioChannel = cell(1,2);
 %         app.AudioSignal = [];
