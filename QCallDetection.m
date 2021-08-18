@@ -26,6 +26,17 @@ temp_length=size(template,2);
 %figure;imshow(template,[])
 %title('Template')
 CallA = [];CallB = [];CallC = [];CallD = [];
+
+% Channel Mode
+Ch1 = 1;
+Ch2 = 2;
+
+if strcmp(app.channel,"Channel 1")
+    Ch2 = 1;
+elseif strcmp(app.channel,"Channel 2")
+    Ch1 = 2;
+end
+
 %% Quail Call Detection
 if (strcmp(app.ModeSwitch.Value,"Offline") && strcmp(app.BatchProcessingTypeSwitch.Value, "Parallel"))
     spec_duration = app.loadIntervalRate;
@@ -34,8 +45,9 @@ if (strcmp(app.ModeSwitch.Value,"Offline") && strcmp(app.BatchProcessingTypeSwit
     Calls = cell(1,4);
     S_Channels = app.S_Channels; %Parallel
     spec_seg_size= 42;  %Parallel
+    Ch_Mode = app.channel;
     parfor i = 1:4
-        for channel = 1:2
+        for channel = Ch1:Ch2
             Ispec= S_Channels{channel,i};
             if ~isempty(Ispec)
                 spec_len=size(Ispec,2);
@@ -130,13 +142,16 @@ if (strcmp(app.ModeSwitch.Value,"Offline") && strcmp(app.BatchProcessingTypeSwit
         end
         
         Calls{i} = sort(Calls{i});
-        j=1;
-        while j < length(Calls{i})
-            if abs(Calls{i}(j) - Calls{i}(j+1)) < 0.15
-                Calls{i}(j) = (Calls{i}(j) + Calls{i}(j+1))/2;
-                Calls{i}(j+1) = [];
+        
+        if strcmp(Ch_Mode,"Both")
+            j=1;
+            while j < length(Calls{i})
+                if abs(Calls{i}(j) - Calls{i}(j+1)) < 0.15
+                    Calls{i}(j) = (Calls{i}(j) + Calls{i}(j+1))/2;
+                    Calls{i}(j+1) = [];
+                end
+                j = j+1;
             end
-            j = j+1;
         end
     end
 else
@@ -145,7 +160,7 @@ else
     time = curtime:1:(curtime+10);
     Calls = cell(1,4);
     for i = 1:4
-        for channel = 1:2
+        for channel = Ch1:Ch2
             Ispec= app.S_Channels{channel,i};
             if ~isempty(Ispec)
                 spec_len=size(Ispec,2);
@@ -246,13 +261,15 @@ else
         end
         
         Calls{i} = sort(Calls{i});
-        j=1;
-        while j < length(Calls{i})
-            if abs(Calls{i}(j) - Calls{i}(j+1)) < 0.15
-                Calls{i}(j) = (Calls{i}(j) + Calls{i}(j+1))/2;
-                Calls{i}(j+1) = [];
+        if strcmp(app.channel,"Both")
+            j=1;
+            while j < length(Calls{i})
+                if abs(Calls{i}(j) - Calls{i}(j+1)) < 0.15
+                    Calls{i}(j) = (Calls{i}(j) + Calls{i}(j+1))/2;
+                    Calls{i}(j+1) = [];
+                end
+                j = j+1;
             end
-            j = j+1;
         end
     end
 end
